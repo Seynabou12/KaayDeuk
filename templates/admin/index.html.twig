@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page d'administration
+{% endblock %}
+{% block body %}
+	<div class="container-fluid">
+		<div class="form-center">
+			<h2>Interface Administrateur</h2>
+		</div>
+		<table class="table">
+			<tr>
+				<th>Titre</th>
+				<th>Prix</th>
+				<th>Nombre de chambre</th>
+				<th>Disponibilité</th>
+				<th>Actions</th>
+			</tr>
+			{% for annonce in annonces %}
+				<tr>
+					<td>{{annonce.title}}</td>
+					<td>{{annonce.price}}</td>
+					<td>{{annonce.room}}</td>
+					<td>
+						<div class="form-check">
+							{% if annonce.isAvailable == 1 %}
+								<input type="checkbox" class="form-check-input" name="" id="" value="true" checked>
+							{% else %}
+								<input type="checkbox" class="form-check-input" name="" id="" value="true" unchecked>
+							{% endif %}
+
+						</div>
+					</td>
+					<td>
+						<a href="{{path('admin_edit', {'id': annonce.id})}}">
+							<i class="far fa-edit"></i>
+						</a>
+					</td>
+					<td>
+						<a href="{{path('admin_delete', {'id': annonce.id})}}" onclick="return confirm('Etes vous sur de bien vouloir supprimer cette annonce'  )">
+							<i class="fas fa-trash"></i>
+						</a>
+					</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</div>
+{% endblock %}

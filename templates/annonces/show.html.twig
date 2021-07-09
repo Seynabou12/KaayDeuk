@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annonces
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-3" style="background-image:url({{ asset('uploads/coverImage/' ~ annonce.coverImage) }}); height:400px; color:white; text-shadow:3px 3px 3px 4px;">
+		<div>
+			<hr class="my-4">
+			<div class="text" style="font-size:60px;">
+				<strong>{{ annonce.title }}</strong>
+			</div>
+			<div class="text" style="font-size:46px;">
+				<p>{{annonce.room}}
+					Chambres à
+					{{ annonce.price | number_format(0, ',', ' ') }}F / mois</p>
+			</div>
+		</div>
+	</div>
+	<div class="container mt-3">
+		<div class="row">
+			<div class="col-md-12">
+				<h4>Description de l'annonce</h4>
+				<div class="card-body">
+					<p class="card-text">{{annonce.description}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+	<br> 
+	<div class="container">
+		<h2>Commentaires</h2>
+		<div class="row">
+			<div class="col-md-8">
+				{% for comment in annonce.comments %}
+					<div class="alert alert-info">
+						<small>{{ comment.author}}
+							à écrit</small>
+						<p>
+							<strong>{{comment.content}}</strong>
+						</p>
+						<p>
+							<small>Publier par
+								{{comment.content}}
+								le
+								{{annonce.createdAt |ago(locale= 'fr')}}
+							</small>
+						</p>
+					</div>
+				{% endfor %}
+			</div>
+
+			<div class="col-md-3">
+				<img src="image/hijab.jpg" alt="image" style="height:300px; width:200px;">
+			</div>
+			<div class="col-md-1">
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">
+						<h6>Seynabou Dione</h6>
+					</li>
+					<li class="list-group-item">
+						<h6>Colabane, Cité Douane</h6>
+					</li>
+					<li class="list-group-item">
+						<h6>dioneseynabou0@gmail.com</h6>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-4">
+			<h3>Commentez l'annonce</h3>
+			{{form_start(commentForm)}}
+			{{form_row(commentForm.author, {attr: {class: 'form-control'}})}}
+			{{form_row(commentForm.email, {attr: {class: 'form-control'}})}}
+			{{form_row(commentForm.content, {attr: {class: 'form-control'}})}}
+			<br>
+			<button type="submit">Commenter</button>
+			{{form_end(commentForm)}}
+		</div>
+	</div>
+	<br>
+	<a href="{{path('annonces_edit', {id: annonce.id})}}">
+		<button class="btn btn-primary">Modifier</button></a>
+	<a href="{{path('annonces_delete', {id: annonce.id})}}">
+		<button class="btn btn-primary">Supprimer</button></a>
+	<a href="{{path('annonces_index')}}">
+	<button class="btn btn-primary">Retour dans toutes les annonces</button></a>
+{% endblock %}

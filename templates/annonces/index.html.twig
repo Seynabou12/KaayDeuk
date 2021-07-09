@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+
+		<div class="col-12 col-md-3">
+			<a href="{{path('annonces_create')}}" class="card-link btn btn-primary">Formulaire d'une Annonce</a>
+		</div>
+	
+	<br>
+	<div
+		class="row">
+		{# card__Begin__#}
+		{% for annonce in annonces %}
+			<div class="col-md-4">
+				<div class="card mb-3">
+					<p class="card-header text-center">
+						{% if annonce.room < 2 %}Une Chambre à
+						{% else %}
+							{{annonce.room}}
+							Chambres
+						{% endif %}
+						à
+						{{annonce.price | number_format(0, ',', ' ')}}
+						/ mois<br>
+						{{annonce.comments |length}}
+						commentaires
+					</p>
+					<img class="card-img-top" src="{{ asset('uploads/coverImage/' ~ annonce.coverImage) }}" alt="annonce">
+					<div class="card-body">
+						<h5>{{annonce.title}}</h5>
+						<p class="card-text">{{annonce.description}}</p>
+					</div>
+					<div class="card-body">
+						<a href="{{path('annonces_show', {'id' : annonce.id})}}" class="card-link btn btn-primary">Détails</a>
+					</div>
+					<div class="card-footer text-muted text-center">
+						<small>Date de creation</small>
+						<strong>{{annonce.createdAt |ago (locale='fr')}}</strong>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}
