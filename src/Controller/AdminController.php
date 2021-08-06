@@ -29,6 +29,7 @@ class AdminController extends AbstractController
             'annonces' => $annonces
         ]);
     }
+    
     #[Route('admin/edit/{id}', name:'admin_edit', methods: ['GET', 'POST'])]
     public function edit(Annonces $annonce, Request $request, EntityManagerInterface $em): Response
     {

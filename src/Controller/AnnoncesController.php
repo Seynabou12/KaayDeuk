@@ -27,6 +27,7 @@ class AnnoncesController extends AbstractController
 
         $this->annoncesRepository = $annoncesRepository;
     }
+    
     #[Route('/annonces', name: 'annonces_index', methods: ['GET'])]
     public function index(): Response
     {
