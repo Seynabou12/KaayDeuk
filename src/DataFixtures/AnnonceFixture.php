@@ -28,7 +28,7 @@ class AnnonceFixture extends Fixture
                     ->setSlug($slugger->slugify($annonce->getTitle()))
                     ->setAdresse($faker->address())
                     ->setPrice(mt_rand(30000, 60000))
-                    ->setDescription($faker->text(300))
+                    ->setDescription($faker->text(100))
                     ->setRoom(mt_rand(1, 5))
                     ->setIsAvailable(mt_rand(0, 1))
                     ->setCreatedAt($faker->dateTimeBetween('-3 month', 'now'));
